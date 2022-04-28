@@ -20,3 +20,22 @@ bash <(curl -sL ecgcc.cc/hostrename)
 bash <(curl -sL ecgcc.cc/basicsofts)   
 ```  
 
+### 3、GCP实例一键DD脚本
+脚本名称：gcp_vps_dd_debian.sh   
+```  
+bash <(curl -sL ecgcc.cc/gcpdd)  
+```  
+
+### 4、GCP实例批量创建  
+脚本名称：gcp_auto_creat_vps.sh  
+```  
+bash <(curl -sL ecgcc.cc/creatvps)   
+```  
+
+### 5、cgking一键装机脚本oneking修改版   
+脚本名称：cg_1key_dd_oneking.sh  
+```  
+bash <(curl -sL ecgcc.cc/c1ko)  
+```   
+
+### 6、
