@@ -58,7 +58,7 @@ besttrace4linux() {
     ${color_yellow} 2. 指定IP回程测试（需要输入VPS连接IP） ${color_end}" && echo -e
     besttrace4linux_num=1
     while [ ${besttrace4linux_num} == 1 ]; do
-        read -n 1 -p """请选择回程测试模式，按1选择“内置IP回程测试”，按9退出测试，按其他任意键选择“指定IP回程测试”,退出请安ctrl+c......""" besttrace4linux_num && echo -e
+        read -n 1 -p """请选择回程测试模式，按1选择“内置IP回程测试”，按9删除测试软件退出测试，按其他任意键选择“指定IP回程测试”,退出请安ctrl+c......""" besttrace4linux_num && echo -e
         besttrace4linux_num=${besttrace4linux_num:-100}
         if [ ${besttrace4linux_num} -eq 1 ]; then
             KeyTips="你选择的测试模式为“内置IP回程测试”，IP地址为广州电信“61.144.56.100”即将为你测试" && ShowColorTipsB
