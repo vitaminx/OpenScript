@@ -37,8 +37,8 @@ download_softwera(){
     mkdir -p /home/besttrace
     chmod -R 777 /home/besttrace
     cd /home/besttrace
-    wget https://github.com/vitaminx/OpenScript/blob/main/Software/besttrace4linux-1.zip
-    wget https://github.com/vitaminx/OpenScript/blob/main/Software/besttrace4linux-2.zip
+    wget https://github.com/vitaminx/OpenScript/raw/main/Software/besttrace4linux-1.zip
+    wget https://github.com/vitaminx/OpenScript/raw/main/Software/besttrace4linux-2.zip
     unzip besttrace*.zip
     chmod -R 777 /home/besttrace && cd ~
 }
