@@ -44,5 +44,17 @@ bash <(curl -sL ecgcc.cc/c1ko)
 bash <(curl -sL ecgcc.cc/ssh)   
 ```  
 
-### 7、
+### 7、TCP回程路由测试-mtr   
+脚本名称：TCPBackhaulTest-mtr.sh   
+```   
+bash <(curl -sL ecgcc.cc/mtr)   
+```   
+
+### 8、TCP回程路由测试-besttrace  
+脚本名称：TCPBesttrace4linuxTest.sh   
+```   
+bash <(curl -sL ecgcc.cc/besttrace)   
+```   
+
+### 9、
 
