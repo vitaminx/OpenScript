@@ -38,4 +38,11 @@ bash <(curl -sL ecgcc.cc/creatvps)
 bash <(curl -sL ecgcc.cc/c1ko)  
 ```   
 
-### 6、
+### 6、ssh登录安全一键设置   
+脚本名称：sshSecuritySettings-open.sh   
+```   
+bash <(curl -sL ecgcc.cc/ssh)   
+```  
+
+### 7、
+
