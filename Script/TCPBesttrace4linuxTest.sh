@@ -40,7 +40,7 @@ download_softwera(){
     wget https://github.com/vitaminx/OpenScript/blob/main/Software/besttrace4linux-1.zip
     wget https://github.com/vitaminx/OpenScript/blob/main/Software/besttrace4linux-2.zip
     unzip besttrace*.zip
-    chmod -R 777 /home/besttrace
+    chmod -R 777 /home/besttrace && cd ~
 }
 
 input_testip(){
@@ -78,3 +78,5 @@ besttrace4linux() {
         fi
     done
 }
+
+besttrace4linux
