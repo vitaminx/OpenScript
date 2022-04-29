@@ -64,7 +64,7 @@ besttrace4linux() {
         if [ ${besttrace4linux_num} -eq 1 ]; then
             KeyTips="你选择的测试模式为“内置IP回程测试”，IP地址为广州电信“61.144.56.100”即将为你测试" && ShowColorTipsB
             /home/besttrace/besttrace ${YourTestIP}
-            besttrace4linux_num=1 && clear && ShowDottedLine
+            besttrace4linux_num=1 && ShowDottedLine
         elif [ ${besttrace4linux_num} -eq 9 ]; then
             KeyTips="你选择退出测试，即将为你删除测试软件并退出" && ShowColorTipsB
             run_comd="删除测试软件" && success_info="成功并退出" && failed_info="失败，请手动删除"
@@ -75,7 +75,7 @@ besttrace4linux() {
             KeyTips="你选择的测试模式为“指定IP回程测试”" && ShowColorTipsB
             input_testip
             /home/besttrace/besttrace ${YourTestIP}
-            besttrace4linux_num=1 && clear && ShowDottedLine
+            besttrace4linux_num=1 && ShowDottedLine
         fi
     done
 }
