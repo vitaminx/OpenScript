@@ -76,7 +76,8 @@ install_caddy2(){
         if [[ "$os" =~ "Ubuntu" ]] || [[ "$os" =~ "Debian" ]]; then
             KeyTips="开始安装“caddy2”及其依赖" && ShowColorTipsB
             ${cmd_install} install -y debian-keyring debian-archive-keyring apt-transport-https
-            curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo tee /etc/apt/trusted.gpg.d/caddy-stable.asc
+            #curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo tee /etc/apt/trusted.gpg.d/caddy-stable.asc
+            curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
             curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
             ${cmd_install} update --fix-missing
             ${cmd_install} install -y caddy
