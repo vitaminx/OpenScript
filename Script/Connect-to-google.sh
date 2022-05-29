@@ -18,10 +18,14 @@ detect_network_link() {
     #获取响应状态码
     local ret_code=$(curl -I -s --connect-timeout ${timeout} ${target} -w %{http_code} | tail -n1)
     if [ "x$ret_code" = "x200" ]; then
-        echo -e && echo -e "${color_yellow}连接“www.google.com”成功，网络畅通、可以科学上网......${color_end}" && echo -e
+        echo -e
+        echo -e "${color_yellow}连接“www.google.com”成功，网络畅通、可以科学上网......${color_end}"
+        echo -e
         return 1
     else
-        echo -e && echo -e "${color_yellow}连接“www.google.com”失败，网络不通、可以洗洗睡了......${color_end}" && echo -e
+        echo -e
+        echo -e "${color_yellow}连接“www.google.com”失败，网络不通、可以洗洗睡了......${color_end}"
+        echo -e
         return 0
     fi
     return 0
