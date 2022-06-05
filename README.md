@@ -56,5 +56,19 @@ bash <(curl -sL fto.cc/mtr)
 bash <(curl -sL fto.cc/besttrace)   
 ```   
 
-### 9、
+### 9、Google连接测试   
+脚本名称：Connect-to-google.sh   
+```   
+bash <(curl -sL fto.cc/google)   
+```   
+
+### 10、订阅转换项目（SubConverter）自定义安装   
+脚本名称：subconverter.sh   
+```   
+bash <(curl -sL fto.cc/sub)   
+```   
+
+
+
+
 
