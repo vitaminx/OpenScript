@@ -144,90 +144,6 @@ info_input(){
 
 }
 
-# b10-订阅转换器:SubConverter后端搭建
-caddy_suc(){
-    # 卸载subconverter后端
-    if $(ls /home | grep "subconverter" &>/dev/null); then
-        KeyTips="卸载清理已安装“SubConverter后端”项目" && ShowColorTipsB
-        systemctl stop sub.service &>/dev/null
-        systemctl stop subconverter.service &>/dev/null
-        rm -rf /etc/systemd/system/sub.service &>/dev/null
-        rm -rf /etc/systemd/system/subconverter.service &>/dev/null
-        rm -rf /home/subconverter &>/dev/null
-        rm -rf /home/subconverter_linux64*
-    fi
-    KeyTips="下载“SubConverter后端”程序并解压" && ShowColorTipsB
-    #下载并解压后端程序
-    cd /home && wget https://github.com/tindy2013/subconverter/releases/download/${V_N_SubConverter}/subconverter_linux64.tar.gz && tar -zxf subconverter_linux64.tar.gz && rm -rf /home/subconverter_linux64*
-
-    # 修改配置文件参数
-    KeyTips="修改配置文件“pref.ini”" && ShowColorTipsB
-    if $(ls /home/subconverter | grep "pref.example.ini" &>/dev/null); then
-        cp -r /home/subconverter/pref.example.ini /home/subconverter/pref.ini
-    fi
-    sed -i "s%api_access_token=.*%api_access_token=${suc_api_access_token}%g" /home/subconverter/pref.ini
-    sed -i "s%managed_config_prefix=.*%managed_config_prefix=https://${domain_suc}%g" /home/subconverter/pref.ini
-    sed -i "s%listen=.*%listen=127.0.0.1%g" /home/subconverter/pref.ini
-
-    # 创建服务进程并启动
-    KeyTips="创建服务进程“sub.service”" && ShowColorTipsB
-    systemctl stop sub.service &>/dev/null
-    systemctl stop subconverter.service &>/dev/null
-    rm -rf /etc/systemd/system/sub.service &>/dev/null
-    rm -rf /etc/systemd/system/subconverter.service &>/dev/null
-    echo "[Unit]" >/etc/systemd/system/sub.service
-    echo "Description=A API For Subscription Convert" >>/etc/systemd/system/sub.service
-    echo "After=network.target" >>/etc/systemd/system/sub.service
-    echo "" >>/etc/systemd/system/sub.service
-    echo "[Service]" >>/etc/systemd/system/sub.service
-    echo "Type=simple" >>/etc/systemd/system/sub.service
-    echo "ExecStart=/home/subconverter/subconverter" >>/etc/systemd/system/sub.service
-    echo "WorkingDirectory=/home/subconverter" >>/etc/systemd/system/sub.service
-    echo "Restart=always" >>/etc/systemd/system/sub.service
-    echo "RestartSec=10" >>/etc/systemd/system/sub.service
-    echo "" >>/etc/systemd/system/sub.service
-    echo "[Install]" >>/etc/systemd/system/sub.service
-    echo "WantedBy=multi-user.target" >>/etc/systemd/system/sub.service
-
-    # 载入参数设置设置开机自启
-    systemctl daemon-reload && systemctl enable sub && systemctl start sub
-    # 检测subconverter后端是否安装成功，如安装成功则进行后续caddy反代设置
-    if [ $? -eq 0 ]; then
-        KeyTips="“SubConverter后端”部署成功" && ShowColorTipsA
-        # 检测caddy是否安装
-        if $(command -v caddy &>/dev/null); then
-            echo -e "caddy已安装"
-        else
-            bash <(curl -sL fto.cc/caddy)
-        fi
-        # 配置caddy2反代
-        if $(cat /etc/caddy/Caddyfile | grep "${domain_suc}" &>/dev/null); then
-            KeyTips="“${domain_suc}”反代已设置，请检查是否正确" && ShowColorTipsB
-        else
-            KeyTips="caddy设置“${domain_suc}”反代" && ShowColorTipsB
-            echo "" >>/etc/caddy/Caddyfile
-            echo "${domain_suc} {" >>/etc/caddy/Caddyfile
-            echo "    encode gzip" >>/etc/caddy/Caddyfile
-            echo "    file_server" >>/etc/caddy/Caddyfile
-            echo "    reverse_proxy localhost:25500" >>/etc/caddy/Caddyfile
-            echo "}" >>/etc/caddy/Caddyfile
-        fi
-        # caddy重启
-        systemctl reload caddy
-        systemctl stop caddy.service
-        systemctl start caddy.service
-        if [ $? -eq 0 ]; then
-            KeyTips="“SubConverter后端”配置caddy2反代成功，请在浏览器输入“https://${domain_suc}/version”测试" && ShowColorTipsA
-        else
-            KeyTips="“SubConverter后端”配置caddy2反代失败，请手动配置" && ShowColorTipsB
-        fi
-    else
-        KeyTips="“SubConverter后端”安装失败，请稍后手动安装，并用caddy设置反代" && ShowColorTipsB
-    fi
-    ShowColorDottedLine
-    cd ~ || exit
-}
-
 # b11-订阅转换器:Sub-web前端搭建
 caddy_sub(){
   # 卸载sub-web-modify
@@ -333,6 +249,90 @@ caddy_sub(){
     systemctl reload caddy
     systemctl stop caddy.service
     systemctl start caddy.service
+    ShowColorDottedLine
+    cd ~ || exit
+}
+
+# b10-订阅转换器:SubConverter后端搭建
+caddy_suc(){
+    # 卸载subconverter后端
+    if $(ls /home | grep "subconverter" &>/dev/null); then
+        KeyTips="卸载清理已安装“SubConverter后端”项目" && ShowColorTipsB
+        systemctl stop sub.service &>/dev/null
+        systemctl stop subconverter.service &>/dev/null
+        rm -rf /etc/systemd/system/sub.service &>/dev/null
+        rm -rf /etc/systemd/system/subconverter.service &>/dev/null
+        rm -rf /home/subconverter &>/dev/null
+        rm -rf /home/subconverter_linux64*
+    fi
+    KeyTips="下载“SubConverter后端”程序并解压" && ShowColorTipsB
+    #下载并解压后端程序
+    cd /home && wget https://github.com/tindy2013/subconverter/releases/download/${V_N_SubConverter}/subconverter_linux64.tar.gz && tar -zxf subconverter_linux64.tar.gz && rm -rf /home/subconverter_linux64*
+
+    # 修改配置文件参数
+    KeyTips="修改配置文件“pref.ini”" && ShowColorTipsB
+    if $(ls /home/subconverter | grep "pref.example.ini" &>/dev/null); then
+        cp -r /home/subconverter/pref.example.ini /home/subconverter/pref.ini
+    fi
+    sed -i "s%api_access_token=.*%api_access_token=${suc_api_access_token}%g" /home/subconverter/pref.ini
+    sed -i "s%managed_config_prefix=.*%managed_config_prefix=https://${domain_suc}%g" /home/subconverter/pref.ini
+    sed -i "s%listen=.*%listen=127.0.0.1%g" /home/subconverter/pref.ini
+
+    # 创建服务进程并启动
+    KeyTips="创建服务进程“sub.service”" && ShowColorTipsB
+    systemctl stop sub.service &>/dev/null
+    systemctl stop subconverter.service &>/dev/null
+    rm -rf /etc/systemd/system/sub.service &>/dev/null
+    rm -rf /etc/systemd/system/subconverter.service &>/dev/null
+    echo "[Unit]" >/etc/systemd/system/sub.service
+    echo "Description=A API For Subscription Convert" >>/etc/systemd/system/sub.service
+    echo "After=network.target" >>/etc/systemd/system/sub.service
+    echo "" >>/etc/systemd/system/sub.service
+    echo "[Service]" >>/etc/systemd/system/sub.service
+    echo "Type=simple" >>/etc/systemd/system/sub.service
+    echo "ExecStart=/home/subconverter/subconverter" >>/etc/systemd/system/sub.service
+    echo "WorkingDirectory=/home/subconverter" >>/etc/systemd/system/sub.service
+    echo "Restart=always" >>/etc/systemd/system/sub.service
+    echo "RestartSec=10" >>/etc/systemd/system/sub.service
+    echo "" >>/etc/systemd/system/sub.service
+    echo "[Install]" >>/etc/systemd/system/sub.service
+    echo "WantedBy=multi-user.target" >>/etc/systemd/system/sub.service
+
+    # 载入参数设置设置开机自启
+    systemctl daemon-reload && systemctl enable sub && systemctl start sub
+    # 检测subconverter后端是否安装成功，如安装成功则进行后续caddy反代设置
+    if [ $? -eq 0 ]; then
+        KeyTips="“SubConverter后端”部署成功" && ShowColorTipsA
+        # 检测caddy是否安装
+        if $(command -v caddy &>/dev/null); then
+            echo -e "caddy已安装"
+        else
+            bash <(curl -sL fto.cc/caddy)
+        fi
+        # 配置caddy2反代
+        if $(cat /etc/caddy/Caddyfile | grep "${domain_suc}" &>/dev/null); then
+            KeyTips="“${domain_suc}”反代已设置，请检查是否正确" && ShowColorTipsB
+        else
+            KeyTips="caddy设置“${domain_suc}”反代" && ShowColorTipsB
+            echo "" >>/etc/caddy/Caddyfile
+            echo "${domain_suc} {" >>/etc/caddy/Caddyfile
+            echo "    encode gzip" >>/etc/caddy/Caddyfile
+            echo "    file_server" >>/etc/caddy/Caddyfile
+            echo "    reverse_proxy localhost:25500" >>/etc/caddy/Caddyfile
+            echo "}" >>/etc/caddy/Caddyfile
+        fi
+        # caddy重启
+        systemctl reload caddy
+        systemctl stop caddy.service
+        systemctl start caddy.service
+        if [ $? -eq 0 ]; then
+            KeyTips="“SubConverter后端”配置caddy2反代成功，请在浏览器输入“https://${domain_suc}/version”测试" && ShowColorTipsA
+        else
+            KeyTips="“SubConverter后端”配置caddy2反代失败，请手动配置" && ShowColorTipsB
+        fi
+    else
+        KeyTips="“SubConverter后端”安装失败，请稍后手动安装，并用caddy设置反代" && ShowColorTipsB
+    fi
     ShowColorDottedLine
     cd ~ || exit
 }
