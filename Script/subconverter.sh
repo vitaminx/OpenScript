@@ -438,4 +438,5 @@ if [[ ${subconverter_num} == "y" ]]; then
     caddy_suc           #订阅转换器:SubConverter后端搭建
     caddy_MyUrls        #MyUrls短链服务
     debian_info_screen
+    read -s -n1 -p "请记录以上配置参数后，按任意键重启系统...... " && echo -e && reboot
 fi
