@@ -27,29 +27,103 @@ if [ -n "$2" ]; then
 	ftpint=$2
 fi
 #ver
-loshub="http://source.loshub.com"
-pureftp=$(curl $loshub/ver/pureftp4.txt)
-mysqlver=$(curl $loshub/ver/mysql5.7.txt)
-mysql80=$(curl $loshub/ver/mysql8.0.txt)
-mariadb102=$(curl $loshub/ver/mariadb10.2.txt)
-mariadb103=$(curl $loshub/ver/mariadb10.3.txt)
-mariadb104=$(curl $loshub/ver/mariadb10.4.txt)
-mariadb105=$(curl $loshub/ver/mariadb10.5.txt)
-libgd=$(curl $loshub/ver/gd.txt)
-openssl=$(curl $loshub/ver/openssl.txt)
-openssl11=$(curl $loshub/ver/openssl1.1.txt)
-autoconf=$(curl $loshub/ver/autoconf.txt)
-caddy=$(curl $loshub/ver/caddy.txt)
-libiconv=$(curl $loshub/ver/libiconv.txt)
-libzip=$(curl $loshub/ver/libzip.txt)
-freetype=$(curl $loshub/ver/freetype.txt)
-curl=$(curl $loshub/ver/curl.txt)
-oniguruma=$(curl $loshub/ver/oniguruma.txt)
-apcu5=$(curl $loshub/ver/apcu5.txt)
-Php74=$(curl $loshub/ver/php7.4.txt)
-MysqlPass=$(tr -cd '[:alnum:]' </dev/urandom | fold -w10 | head -n1)
-go=$(curl $loshub/ver/go.txt)
-Domain=$(curl icanhazip.com)
+lcmp_ver() {
+	loshub="http://source.loshub.com"
+	pureftp=$(curl $loshub/ver/pureftp4.txt)
+	mysqlver=$(curl $loshub/ver/mysql5.7.txt)
+	mysql80=$(curl $loshub/ver/mysql8.0.txt)
+	mariadb102=$(curl $loshub/ver/mariadb10.2.txt)
+	mariadb103=$(curl $loshub/ver/mariadb10.3.txt)
+	mariadb104=$(curl $loshub/ver/mariadb10.4.txt)
+	mariadb105=$(curl $loshub/ver/mariadb10.5.txt)
+	libgd=$(curl $loshub/ver/gd.txt)
+	openssl=$(curl $loshub/ver/openssl.txt)
+	openssl11=$(curl $loshub/ver/openssl1.1.txt)
+	autoconf=$(curl $loshub/ver/autoconf.txt)
+	caddy=$(curl $loshub/ver/caddy.txt)
+	libiconv=$(curl $loshub/ver/libiconv.txt)
+	libzip=$(curl $loshub/ver/libzip.txt)
+	freetype=$(curl $loshub/ver/freetype.txt)
+	curl=$(curl $loshub/ver/curl.txt)
+	oniguruma=$(curl $loshub/ver/oniguruma.txt)
+	apcu5=$(curl $loshub/ver/apcu5.txt)
+	Php74=$(curl $loshub/ver/php7.4.txt)
+	MysqlPass=$(tr -cd '[:alnum:]' </dev/urandom | fold -w10 | head -n1)
+	go=$(curl $loshub/ver/go.txt)
+	Domain=$(curl icanhazip.com)
+}
+lcmp_ver_log() {
+	echo -e "${pureftp}" >lcmp-oneking-ver.log
+	echo -e "mysqlver-${mysqlver}" >>lcmp-oneking-ver.log
+	echo -e "mysql80-${mysql80}" >>lcmp-oneking-ver.log
+	echo -e "${mariadb102}" >>lcmp-oneking-ver.log
+	echo -e "${mariadb103}" >>lcmp-oneking-ver.log
+	echo -e "${mariadb104}" >>lcmp-oneking-ver.log
+	echo -e "${mariadb105}" >>lcmp-oneking-ver.log
+	echo -e "libgd-${libgd}" >>lcmp-oneking-ver.log
+	echo -e "${openssl}" >>lcmp-oneking-ver.log
+	echo -e "${openssl11}" >>lcmp-oneking-ver.log
+	echo -e "${autoconf}" >>lcmp-oneking-ver.log
+	echo -e "${caddy}" >>lcmp-oneking-ver.log
+	echo -e "${libiconv}" >>lcmp-oneking-ver.log
+	echo -e "${libzip}" >>lcmp-oneking-ver.log
+	echo -e "${freetype}" >>lcmp-oneking-ver.log
+	echo -e "${curl}" >>lcmp-oneking-ver.log
+	echo -e "${oniguruma}" >>lcmp-oneking-ver.log
+	echo -e "${apcu5}" >>lcmp-oneking-ver.log
+	echo -e "${Php74}" >>lcmp-oneking-ver.log
+	echo -e "MysqlPass：${MysqlPass}" >>lcmp-oneking-ver.log
+	echo -e "${go}" >>lcmp-oneking-ver.log
+	echo -e "${Domain}" >>lcmp-oneking-ver.log
+}
+lcmp_oneking_ver_log() {
+	loshub="http://source.loshub.com"
+	pureftp=$(curl $loshub/ver/pureftp4.txt)
+	echo -e "${pureftp}" >lcmp-oneking-ver.log
+	mysqlver=$(curl $loshub/ver/mysql5.7.txt)
+	echo -e "mysqlver-${mysqlver}" >>lcmp-oneking-ver.log
+	mysql80=$(curl $loshub/ver/mysql8.0.txt)
+	echo -e "mysql80-${mysql80}" >>lcmp-oneking-ver.log
+	mariadb102=$(curl $loshub/ver/mariadb10.2.txt)
+	echo -e "${mariadb102}" >>lcmp-oneking-ver.log
+	mariadb103=$(curl $loshub/ver/mariadb10.3.txt)
+	echo -e "${mariadb103}" >>lcmp-oneking-ver.log
+	mariadb104=$(curl $loshub/ver/mariadb10.4.txt)
+	echo -e "${mariadb104}" >>lcmp-oneking-ver.log
+	mariadb105=$(curl $loshub/ver/mariadb10.5.txt)
+	echo -e "${mariadb105}" >>lcmp-oneking-ver.log
+	libgd=$(curl $loshub/ver/gd.txt)
+	echo -e "libgd-${libgd}" >>lcmp-oneking-ver.log
+	openssl=$(curl $loshub/ver/openssl.txt)
+	echo -e "${openssl}" >>lcmp-oneking-ver.log
+	openssl11=$(curl $loshub/ver/openssl1.1.txt)
+	echo -e "${openssl11}" >>lcmp-oneking-ver.log
+	autoconf=$(curl $loshub/ver/autoconf.txt)
+	echo -e "${autoconf}" >>lcmp-oneking-ver.log
+	caddy=$(curl $loshub/ver/caddy.txt)
+	echo -e "${caddy}" >>lcmp-oneking-ver.log
+	libiconv=$(curl $loshub/ver/libiconv.txt)
+	echo -e "${libiconv}" >>lcmp-oneking-ver.log
+	libzip=$(curl $loshub/ver/libzip.txt)
+	echo -e "${libzip}" >>lcmp-oneking-ver.log
+	freetype=$(curl $loshub/ver/freetype.txt)
+	echo -e "${freetype}" >>lcmp-oneking-ver.log
+	curl=$(curl $loshub/ver/curl.txt)
+	echo -e "${curl}" >>lcmp-oneking-ver.log
+	oniguruma=$(curl $loshub/ver/oniguruma.txt)
+	echo -e "${oniguruma}" >>lcmp-oneking-ver.log
+	apcu5=$(curl $loshub/ver/apcu5.txt)
+	echo -e "${apcu5}" >>lcmp-oneking-ver.log
+	Php74=$(curl $loshub/ver/php7.4.txt)
+	echo -e "${Php74}" >>lcmp-oneking-ver.log
+	MysqlPass=$(tr -cd '[:alnum:]' </dev/urandom | fold -w10 | head -n1)
+	echo -e "MysqlPass：${MysqlPass}" >>lcmp-oneking-ver.log
+	go=$(curl $loshub/ver/go.txt)
+	echo -e "${go}" >>lcmp-oneking-ver.log
+	Domain=$(curl icanhazip.com)
+	echo -e "${Domain}" >>lcmp-oneking-ver.log
+}
+lcmp_oneking_ver_log
 #stop se
 if grep -i "CentOS" /etc/*-release || grep -i "Rocky" /etc/*-release || grep -i "Alma" /etc/*-release || grep -i "Fedora" /etc/*-release; then
 	setenforce 0
