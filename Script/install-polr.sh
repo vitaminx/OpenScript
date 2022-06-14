@@ -19,24 +19,49 @@
         echo -e "${color_yellow}${KeyTips}......${color_end}"
     }
 #======================================================
-domain_polr="ssoo.ga"
+polr_cydrobolt(){
+    domain_polr="ssoo.ga"
 
-cd /www/wwwroot/${domain_polr}
-git clone https://github.com/cydrobolt/polr.git --depth=1
-mv polr/{.,}* ./
+    cd /www/wwwroot/${domain_polr}
+    git clone https://github.com/cydrobolt/polr.git --depth=1
+    mv polr/{.,}* ./ && rm -rf /www/wwwroot/${domain_polr}/polr
 
-#下载汉化文件
-cd resources && rm -rf views && wget https://www.moerats.com/usr/down/porl_views.tar.gz
-tar zxvf porl_views.tar.gz
-cd ..
+    #下载汉化文件
+    cd resources && rm -rf views && wget https://www.moerats.com/usr/down/porl_views.tar.gz
+    tar zxvf porl_views.tar.gz
+    cd ..
 
-#设置权限
-chmod -R 755 /www/wwwroot/${domain_polr}
-chown -R www:www /www/wwwroot/${domain_polr}
+    #设置权限
+    chmod -R 755 /www/wwwroot/${domain_polr}
+    chown -R www:www /www/wwwroot/${domain_polr}
 
-#安装composer并安装网站
-curl -sS https://getcomposer.org/installer | php
-php composer.phar install --no-dev -o
+    #安装composer并安装网站
+    curl -sS https://getcomposer.org/installer | php
+    php composer.phar install --no-dev -o
 
-cp .env.setup .env
-chown -R www:www /www/wwwroot/${domain_polr}
+    cp .env.setup .env
+    chown -R www:www /www/wwwroot/${domain_polr}
+}
+
+polr_skywalker512(){
+    domain_polr="ssoo.ga"
+
+    #克隆汉化版并移动文件
+    cd /www/wwwroot/${domain_polr}
+    git clone https://github.com/skywalker512/polr.git
+    mv polr/{.,}* ./ && rm -rf /www/wwwroot/${domain_polr}/polr
+
+    #设置权限
+    chmod -R 755 /www/wwwroot/${domain_polr}
+    chown -R www:www /www/wwwroot/${domain_polr}
+
+    #安装composer并安装网站
+    curl -sS https://getcomposer.org/installer | php
+    php composer.phar install --no-dev -o
+
+    rm -rf /www/wwwroot/${domain_polr}/composer.phar
+    cp .env.setup .env
+    chown -R www:www /www/wwwroot/${domain_polr}
+}
+
+polr_skywalker512
