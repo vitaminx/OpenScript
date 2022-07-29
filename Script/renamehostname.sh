@@ -62,4 +62,4 @@ debian_rename_hostname(){
 }
 
 debian_rename_hostname && echo -e
-read -s -n1 -p "hostname已修改为“${new_hostname}”，按任意键重启系统生效，按“ctrl+c”退出...... " && echo -e && reboot
+#read -s -n1 -p "hostname已修改为“${new_hostname}”，按任意键重启系统生效，按“ctrl+c”退出...... " && echo -e && reboot
